@@ -1,4 +1,3 @@
-from upboat.models import Base
 from sqlalchemy import ForeignKey
 from sqlalchemy import Column, Integer, String, Date, DateTime
 from sqlalchemy.ext.associationproxy import association_proxy
