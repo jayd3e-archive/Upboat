@@ -15,7 +15,7 @@ class ObjectsModel(Base):
     
     id = Column(Integer, primary_key=True)
     score = Column(Integer(100), default=0)
-    voted_users = association_proxy('users_objects', 'user')
+    voted_users = association_proxy('users_objects', 'users')
 
     def __init__(self, **fields):
         self.__dict__.update(fields)
@@ -27,7 +27,7 @@ class UsersModel(Base):
     __tablename__ = 'users'
     
     id = Column(Integer, primary_key=True)
-    voted_objects = association_proxy('users_objects', 'object')
+    voted_objects = association_proxy('users_objects', 'objects')
 
     def __init__(self, **fields):
         self.__dict__.update(fields)
@@ -43,9 +43,9 @@ class UsersObjectsModel(Base):
     object_id = Column(Integer, ForeignKey('objects.id'))
     vote = Column(Integer(1))
     
-    user = relationship(UsersModel,
+    users = relationship(UsersModel,
                         backref="users_objects")
-    object = relationship(ObjectsModel,
+    objects = relationship(ObjectsModel,
                           backref="users_objects")
 
     def __init__(self, **fields):
