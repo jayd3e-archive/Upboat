@@ -41,7 +41,7 @@ class MainHandler(object):
 # Configuration function
 def main(global_config, **settings):
         '''Main config function'''
-        engine = create_engine("sqlite://", pool_recycle=3600)
+        engine = create_engine("sqlite://")
         initializeBase(engine)
 
         # Will later attach a DBSession to the Request
