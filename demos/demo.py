@@ -4,6 +4,7 @@ from pyramid.request import Request
 from pyramid.decorator import reify
 from sqlalchemy import create_engine
 from sqlalchemy import desc
+from sqlalchemy.pool import StaticPool
 from sqlalchemy.orm import sessionmaker
 from upboat.models import UsersModel
 from upboat.models import UsersObjectsModel
@@ -30,23 +31,32 @@ class MainHandler(object):
         self.here = request.environ['PATH_INFO']
         self.matchdict = request.matchdict
         
-    @view_config(route_name='index', renderer='index.mako')
+    @view_config(route_name='index', renderer='demo.mako')
     def index(self):
         db = self.request.db
+        if 'submit' in self.request.POST:
+            test_object = ObjectsModel()
+            db.add(test_object)
+        db.flush()
+
         objects = db.query(ObjectsModel).order_by(desc(ObjectsModel.score)).all()
-        return {'title' : 'Upboat',
+        return {'title' : 'Upboat Demo',
                 'here' : self.here,
                 'objects' : objects}
 
 # Configuration function
 def main(global_config, **settings):
         '''Main config function'''
-        engine = create_engine("sqlite://")
+        engine = create_engine("sqlite://",
+                               connect_args={'check_same_thread':False},
+                               poolclass=StaticPool)
         initializeBase(engine)
 
         # Will later attach a DBSession to the Request
-        maker = sessionmaker(bind=engine, autocommit=True)
+        maker = sessionmaker(bind=engine, 
+                             autocommit=True)
         settings['db.sessionmaker'] = maker
+        settings['mako.directories'] = 'upboat:templates'
 
         config = Configurator(settings=settings,
                               root_factory=Site,
@@ -56,7 +66,7 @@ def main(global_config, **settings):
                                         
         # Handler Routes
         config.add_route('index', '/')
-        config.add_route('toggle_vote', '/toggle_vote/{user_id}/{comment_id}/{vote}')
+        config.add_route('toggle_vote', '/toggle_vote/{user_id}/{object_id}/{vote}')
         
         # Scans                  
         config.scan('.')

@@ -1,0 +1,57 @@
+.objects {
+	width: 300px;
+}
+
+.object {
+	clear: both;
+	padding: 10px 0px;
+}
+
+.id {
+	padding-top: 12px;
+	float: left;	
+}
+
+.score {
+	padding-top: 12px;
+	float: right;
+}
+
+.vote {
+	width: 20px;
+	float: right;
+	margin-left: 10px;
+}
+
+.vote .up {
+	background-image: url('../img/up_arrow.png');
+	background-position: -40px 0px;
+	margin-bottom: 5px;
+	width: 20px;
+	height: 20px;
+}
+
+.vote .up:hover {
+	background-position: -60px 0px;
+	cursor: pointer;
+}
+
+.vote .down {
+	background-image: url('../img/down_arrow.png');
+	background-position: -40px 0px;
+	width: 20px;
+	height: 20px;
+}
+
+.vote .down:hover {
+	background-position: -60px 0px;
+	cursor: pointer;
+}
+
+.vote .active {
+	background-position: 0px 0px;
+}
+
+.vote .active:hover {
+	background-position: -20px 0px;
+}
