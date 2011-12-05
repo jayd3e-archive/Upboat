@@ -75,4 +75,4 @@ def main(global_config, **settings):
 
 if __name__ == '__main__':
     from paste.httpserver import serve
-    serve(main(None), host="0.0.0.0", port="5432")
+    serve(main(None), host="0.0.0.0", port="5020")
