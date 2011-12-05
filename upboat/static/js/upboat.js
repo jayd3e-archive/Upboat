@@ -41,9 +41,9 @@ toggle_vote = function(node, user_id, object_id, vote) {
         setScore(data.score);
     };
         
-	$.ajax({
-		type: "GET",
-	    url: "/toggle_vote/" + user_id + "/" + object_id + "/" + vote,
+    $.ajax({
+        type: "GET",
+        url: "/toggle_vote/" + user_id + "/" + object_id + "/" + vote,
         success: toggleVoteCallback
-	});
+    });
 };
