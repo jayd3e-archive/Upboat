@@ -50,4 +50,5 @@ data
 *.swo
 *.buildpath
 *.pydevproject
-reprap/static/img/issue_images/*
+docs/build/
+env/
